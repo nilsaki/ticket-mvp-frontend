@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/axios";
+import Navbar from "../components/Navbar";
 
 function TicketDetail() {
   const { id } = useParams();
@@ -57,6 +58,8 @@ function TicketDetail() {
   }
 
   return (
+  <>
+  <Navbar />
     <div className="page">
       <div className="header">
         <div>
@@ -135,7 +138,8 @@ function TicketDetail() {
         </div>
       </div>
     </div>
-  );
+    </>
+    );
 }
 
 export default TicketDetail;

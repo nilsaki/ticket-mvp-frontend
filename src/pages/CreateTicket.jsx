@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api/axios";
+import Navbar from "../components/Navbar";
 
 function CreateTicket() {
   const [form, setForm] = useState({
@@ -36,6 +37,8 @@ function CreateTicket() {
   };
 
   return (
+  <>
+  <Navbar />
     <div className="page">
       <div className="form-wrapper">
         <div className="header">
@@ -112,8 +115,9 @@ function CreateTicket() {
           </form>
         </div>
       </div>
-    </div>
-  );
+</div>
+</>
+);
 }
 
 export default CreateTicket;

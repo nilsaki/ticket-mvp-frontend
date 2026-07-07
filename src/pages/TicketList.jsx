@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import Navbar from "../components/Navbar";
 
 function TicketList() {
   const [tickets, setTickets] = useState([]);
@@ -36,6 +37,8 @@ function TicketList() {
   };
 
   return (
+  <>
+    <Navbar />
     <div className="page">
       <div className="header">
         <div>
@@ -122,6 +125,7 @@ function TicketList() {
         )}
       </div>
     </div>
+  </>
   );
 }
 
