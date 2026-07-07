@@ -4,19 +4,41 @@ import api from "../api/axios";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const login = async (e) => {
     e.preventDefault();
+    setMessage("");
 
-    const res = await api.post("/auth/login/", {
-      username,
-      password,
-    });
+    try {
+      const res = await api.post("/auth/login/", {
+        username,
+        password,
+      });
 
-    localStorage.setItem("access", res.data.access);
-    localStorage.setItem("refresh", res.data.refresh);
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
 
-    window.location.href = "/tickets";
+      window.location.href = "/tickets";
+    } catch (err) {
+      setMessage("Giriş başarısız. Kullanıcı yok veya şifre yanlış.");
+    }
+  };
+
+  const register = async () => {
+    setMessage("");
+
+    try {
+      await api.post("/register/", {
+        username,
+        password,
+        role: "USER",
+      });
+
+      setMessage("Kullanıcı oluşturuldu. Şimdi giriş yapabilirsin.");
+    } catch (err) {
+      setMessage("Kayıt başarısız. Kullanıcı zaten var olabilir.");
+    }
   };
 
   return (
@@ -37,6 +59,11 @@ function Login() {
       />
 
       <button type="submit">Giriş</button>
+      <button type="button" onClick={register}>
+        Kayıt Ol
+      </button>
+
+      {message && <p>{message}</p>}
     </form>
   );
 }
