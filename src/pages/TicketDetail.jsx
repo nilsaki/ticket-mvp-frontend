@@ -45,6 +45,26 @@ function TicketDetail() {
     }
   };
 
+  const statusLabel = {
+  OPEN: "Açık",
+  IN_PROGRESS: "İşlemde",
+  WAITING: "Beklemede",
+  RESOLVED: "Çözüldü",
+  CLOSED: "Kapandı",
+  };
+
+  const priorityLabel = {
+    LOW: "Düşük",
+    MEDIUM: "Orta",
+    HIGH: "Yüksek",
+    CRITICAL: "Kritik",
+  };
+
+  const typeLabel = {
+    IT: "IT",
+    ATOLYE: "Atölye",
+  };
+
   useEffect(() => {
     loadTicket();
   }, []);
@@ -80,16 +100,16 @@ function TicketDetail() {
           <div className="field-value">{ticket.created_by_name}</div>
 
           <div className="field-label">Tür</div>
-          <div className="field-value">{ticket.request_type}</div>
+          <div className="field-value">{typeLabel[ticket.request_type]}</div>
 
           <div className="field-label">Kategori</div>
           <div className="field-value">{ticket.category || "-"}</div>
 
           <div className="field-label">Öncelik</div>
-          <div className="field-value">{ticket.priority}</div>
+          <div className="field-value">{priorityLabel[ticket.priority]}</div>
 
           <div className="field-label">Durum</div>
-          <div className="field-value">{ticket.status}</div>
+          <div className="field-value">{statusLabel[ticket.status]}</div>
 
           <div className="field-label">Atanan</div>
           <div className="field-value">

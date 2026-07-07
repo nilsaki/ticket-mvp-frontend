@@ -42,6 +42,26 @@ function TicketList() {
     ["RESOLVED", "CLOSED"].includes(t.status)
   ).length;
 
+  const statusLabel = {
+  OPEN: "Açık",
+  IN_PROGRESS: "İşlemde",
+  WAITING: "Beklemede",
+  RESOLVED: "Çözüldü",
+  CLOSED: "Kapandı",
+  };
+
+  const priorityLabel = {
+    LOW: "Düşük",
+    MEDIUM: "Orta",
+    HIGH: "Yüksek",
+    CRITICAL: "Kritik",
+  };
+
+  const typeLabel = {
+    IT: "IT",
+    ATOLYE: "Atölye",
+  };
+
   const priorityClass = (priority) => {
     if (priority === "CRITICAL") return "ticket-card critical";
     if (priority === "HIGH") return "ticket-card high";
@@ -141,7 +161,7 @@ function TicketList() {
                   <h3 className="ticket-title">{ticket.title}</h3>
 
                   <div className="badge-row">
-                    <span className="badge">{ticket.request_type}</span>
+                    <span className="badge">{typeLabel[ticket.request_type]}</span>
 
                     <span
                       className={
@@ -152,7 +172,7 @@ function TicketList() {
                           : "badge"
                       }
                     >
-                      {ticket.priority}
+                      {priorityLabel[ticket.priority]}
                     </span>
 
                     <span
@@ -164,7 +184,7 @@ function TicketList() {
                           : "badge"
                       }
                     >
-                      {ticket.status}
+                      {statusLabel[ticket.status]}
                     </span>
 
                     <span className="badge">
