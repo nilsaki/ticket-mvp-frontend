@@ -11,17 +11,14 @@ function Login() {
     setMessage("");
 
     try {
-      const res = await api.post("/auth/login/", {
-        username,
-        password,
-      });
+      const res = await api.post("/auth/login/", { username, password });
 
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
 
       window.location.href = "/tickets";
-    } catch (err) {
-      setMessage("Giriş başarısız. Kullanıcı yok veya şifre yanlış.");
+    } catch {
+      setMessage("Giriş başarısız. Kullanıcı adı veya şifre hatalı.");
     }
   };
 
@@ -36,35 +33,51 @@ function Login() {
       });
 
       setMessage("Kullanıcı oluşturuldu. Şimdi giriş yapabilirsin.");
-    } catch (err) {
+    } catch {
       setMessage("Kayıt başarısız. Kullanıcı zaten var olabilir.");
     }
   };
 
   return (
-    <form onSubmit={login}>
-      <h2>Giriş Yap</h2>
+    <div className="login-page">
+      <div className="card login-card">
+        <h1 className="login-title">Ticket Management</h1>
+        <p className="login-subtitle">
+          IT ve Atölye taleplerinizi tek merkezden yönetin.
+        </p>
 
-      <input
-        placeholder="Kullanıcı adı"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+        <form onSubmit={login}>
+          <label>Kullanıcı Adı</label>
+          <input
+            className="input"
+            placeholder="Örn: nilsu"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-      <input
-        placeholder="Şifre"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+          <label>Şifre</label>
+          <input
+            className="input"
+            placeholder="Şifrenizi girin"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-      <button type="submit">Giriş</button>
-      <button type="button" onClick={register}>
-        Kayıt Ol
-      </button>
+          <div className="actions">
+            <button className="btn btn-primary" type="submit">
+              Giriş Yap
+            </button>
 
-      {message && <p>{message}</p>}
-    </form>
+            <button className="btn btn-secondary" type="button" onClick={register}>
+              Demo Kayıt
+            </button>
+          </div>
+
+          {message && <p className="message">{message}</p>}
+        </form>
+      </div>
+    </div>
   );
 }
 
